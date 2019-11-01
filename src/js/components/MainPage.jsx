@@ -1,8 +1,11 @@
 import React from 'react'
 import getNews from '../services/getRandomNews'
-import { get } from 'https';
+import Article from './Article'
 
 export default class MainPage extends React.Component {
+    state = {
+        articles: [],
+    }
     checkAuth() {
         const { history } = this.props;
         //history.push('/login') 
@@ -10,10 +13,16 @@ export default class MainPage extends React.Component {
 
     componentDidMount() {
         this.checkAuth()
-        getNews();
+        getNews().then(articles => {
+            console.log(articles)
+            this.setState({ articles });
+        })
     }
 
     render() {
-        return 'Hello Bro'
+       
+        return this.state.articles.map(article => {
+            return <Article key={article.id} {...article}/>
+        })
     }
 }
