@@ -21,8 +21,10 @@ export default class MainPage extends React.Component {
 
     render() {
        
-        return this.state.articles.map(article => {
-            return <Article key={article.id} {...article}/>
-        })
+        return <main>
+            {this.state.articles.map(article => {
+                    return <Article key={article.id} {...article}/>
+            })}
+        </main>
     }
 }
