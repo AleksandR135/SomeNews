@@ -6,18 +6,18 @@ import {
     FETCH_NEWS_SUCCESS,
 } from './action';
 
-export default (state = { login: false, articles: [] }, action) => {
+export default (state = { login: false, articles: [], articlesStatus: 'NOT_ASKED' }, action) => {
     switch (action.type) {
         case LOGIN_SUCCESS:
-            return { ...state, login: 'success' };
+            return { ...state, login: 'SUCCESS' };
         case LOGIN_FAILURE:
-            return { ...state, login: 'failed' };
+            return { ...state, login: 'ERROR' };
         case FETCH_NEWS_SUCCESS:
-            return { ...state, articles: action.articles };
+            return { ...state, articles: action.articles, articlesStatus: 'SUCCESS' };
         case FETCH_NEWS_LOADING:
-            return { ...state, articlesStatus: 'loading' };
+            return { ...state, articlesStatus: 'LOADING' };
         case FETCH_NEWS_FAILURE:
-            return { ...state, articlesStatus: 'failure' }
+            return { ...state, articlesStatus: 'ERROR' }
         default:
             return state;
     }
