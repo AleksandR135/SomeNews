@@ -4,10 +4,12 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux'; 
 import './index.css';
 import App from './js/App';
-import reducer from './js/reducer'
+import reducer from './js/reducer';
+import { requestMiddleware } from './js/middleware';
 
 const store = createStore(
-    reducer
+    reducer,
+    applyMiddleware(requestMiddleware)
 )
 
 ReactDOM.render(
