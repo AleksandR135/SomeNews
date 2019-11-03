@@ -8,6 +8,21 @@ class LoginPage extends React.Component {
         password: '',
     }
 
+    checkAuth() {
+        const { loginStatus, history } = this.props;
+        if (loginStatus === 'SUCCESS') {
+            history.push('/');
+        }
+    }
+
+    componentDidMount() {
+        this.checkAuth();
+    }
+
+    componentDidUpdate() {
+        this.checkAuth();
+    }
+
     handleLoginChange = (e) => {
         this.setState({ login: e.target.value }); 
     }
@@ -24,8 +39,9 @@ class LoginPage extends React.Component {
     render() {
         return (
             <div className='login__wrapper'>
-                <form className='login__form'>
+                <div className='login__form'>
                     <h2>Please Log In</h2>
+                    <span className='login__errorMessage'>{this.props.loginStatus === 'ERROR' ? 'Login or password are incorrect' : ''}</span>
                     <input 
                         name='login' 
                         onChange={this.handleLoginChange} 
@@ -47,15 +63,13 @@ class LoginPage extends React.Component {
                     >
                         Login
                     </button>
-                </form>
+                </div>
             </div>
         )
     }
 }
 
-const mapStateToProps = (state) => ({
-    login: state.login,
-});
+const mapStateToProps = ({ loginStatus }) => ({ loginStatus });
 
 const mapDispathToProps = (dispatch) => ({
     login: (authData) => dispatch(loginRequest(authData)),

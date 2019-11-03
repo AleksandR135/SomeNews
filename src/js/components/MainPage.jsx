@@ -5,6 +5,7 @@ import { fetchNewsRequest } from '../action';
 
 class MainPage extends React.Component {
     checkAuth() {
+        if (this.props.loginStatus === 'SUCCESS') return;
         const { history } = this.props;
         history.push('/login') 
     }
@@ -14,8 +15,13 @@ class MainPage extends React.Component {
         this.props.fetchNews();
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.loginStatus !== this.props.loginStatus) {
+            this.checkAuth();
+        }
+    }
+
     render() {
-        console.log(this.props);
         if (this.props.articlesStatus === 'ERROR') {
             return 'Something went wrong';
         }
@@ -25,13 +31,13 @@ class MainPage extends React.Component {
         }
 
         return <main>
-            {this.props.articles.map(article => <Article key={article.id} {...article}/>)}
+            {this.props.articles.slice(0, 5).map(article => <Article key={article.id} {...article}/>)}
         </main>
     }
 }
 
 const mapStateToPros = state => ({
-    auth: state.login,
+    loginStatus: state.loginStatus,
     articles: state.articles,
     articlesStatus: state.articlesStatus,
 });

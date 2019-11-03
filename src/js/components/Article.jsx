@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function Article(props) {
-    return <a className='article' href={props.url}>
+    return <a className='article' href={props.url} target='_blank'>
         <h2 className='article__title'>{props.title}</h2>
         <div className='article__content'>
             <div className='article__imgBlock'>

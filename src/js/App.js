@@ -13,10 +13,8 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path='/login'>
-          <LoginPage/>
-        </Route>
-        <Route path='/' render={(props => <MainPage {...props}/>)} />
+        <Route path='/login' render={({ history }) => <LoginPage history={history} />} />
+        <Route path='/' render={({ history }) => <MainPage history={history} />} />
       </Switch>
     </Router>
     
