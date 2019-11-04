@@ -37,15 +37,21 @@ class LoginPage extends React.Component {
     }
 
     render() {
+        const { login, password } = this.state;
+
         return (
             <div className='login__wrapper'>
                 <div className='login__form'>
                     <h2>Please Log In</h2>
-                    <span className='login__errorMessage'>{this.props.loginStatus === 'ERROR' ? 'Login or password are incorrect' : ''}</span>
+                    {this.props.loginStatus === 'ERROR' && (
+                        <span className='login__errorMessage'>
+                            'Login or password are incorrect'
+                        </span>
+                    )}
                     <input 
                         name='login' 
                         onChange={this.handleLoginChange} 
-                        value={this.state.login}
+                        value={login}
                         className='login__input'
                         placeholder='Enter your login'
                     />
@@ -53,7 +59,7 @@ class LoginPage extends React.Component {
                         name='password'
                         type='password'
                         onChange={this.handlePasswordChange}
-                        value={this.state.password}
+                        value={password}
                         className='login__input'
                         placeholder='Enter your password'
                     />
